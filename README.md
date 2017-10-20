@@ -1,11 +1,14 @@
-# pui-assignment-4
+PUI A3: Web Basics
+========
 
-Template for Programming Usable Interfaces Fall 2017 (05-430/630), Assignment 4.
+This repository is a basic site of three base html pages and css.
 
-To get started with this homework, fork this repository (https://help.github.com/articles/fork-a-repo/).
+## Some things I learned, some trouble points
 
-Add your TA as a collaborator on your forked repository (pui-fannie for Section A/Monday and ato1120 for Section B/Wednesday).
+* Using git from the command line in OSX is not bad and from Windows it's actually ok too.
+* It's a pain to go back and reorganize your CSS if you just do it willy-nilly and need to refactor later.
+* Different browsers and different computers seem to have different css settings baked in. For example, Chrome on my laptop rendered all fine, but Chrome on my desktop has some 'a web-kit link' enabled by default and made the site look awful, so I had to include that one property just in case.
+* Things just look different in different browsers.
+* I totally see why CMS's are the way to go. This assignment brought me back to the Dreamweaver days.
 
-When you finish your assignment, publish your web page following the instructions here: https://guides.github.com/features/pages/
-
-Make sure you include your URL in your repository description and assignment write-up!
+That's it. Thanks, Scott

@@ -1,0 +1,162 @@
+/* Buntastic CSS */
+/*
+    selector {
+      property: foo;
+    }
+    .class
+    #id
+    multiple , p - use comma
+    child p - no comma
+*/
+
+
+/* Main html Tags */
+    body {
+      background-color: white;
+      width: 80%;
+      height: auto;
+      margin: auto;
+      font-size: 1.4em;
+      color: black;
+      font-family: 'Merriweather', 'Roboto', serif;
+    }
+    p {
+      font-size: 14px;
+    }
+    a {
+      color: black;
+    }
+    a:hover{
+      color:white;
+      background-color: black;
+    }
+    a:-webkit-any-link{
+      background-color: white;
+    }
+    img a:hover{
+      background-color: white;
+    }
+    h1 {
+      font-size: 1.4em;
+    }
+
+/*    Menu    */
+
+    header{
+      font-size: 20px;
+      text-align: center;
+    }
+    header #logo {
+      margin: 0 auto;
+      text-decoration: none;
+    }
+    header, nav{
+      text-align: center;
+      background: white;
+      margin: 20px 0;
+      padding: auto;
+    }
+    header a:hover{
+      text-decoration: none;
+    }
+    nav a {
+      color: white;
+      padding: 8px 20px;;
+    }
+    .menu{
+      border-top: 2px solid #000;
+      height: 25px;
+      border-bottom: 2px solid #000;
+
+    }
+    .menu a {
+      color: black;
+      font-weight: bold;
+      text-decoration: bold;
+      text-align: center;
+      text-decoration: none;
+      padding: 0px 64px;
+      padding-top: 0px;
+    }
+    nav a:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+/* Body */
+
+    #bun_body{
+      display: inline-flex;
+    }
+    .our_story{
+      float: right;
+      width: 40%;
+      display: block;
+      padding:30px;
+    }
+    #shop_img{
+      width: 600px;
+      height: 450px;
+
+    }
+    .bun_list {
+      font-size: 12pt;
+    }
+    .bun_row{
+      width: 100%;
+      float: left;
+      display: inline-block;
+    }
+    .a_bun{
+      float: left;
+      max-width: 300px;
+      border-top: 60px;
+      border: 10px;
+      margin: 10px;
+      width: 30%;
+      text-align: center;
+      text-decoration: none;
+    }
+    .a_bun a{
+      text-decoration: none;
+    }
+    .a_bun:hover{
+      outline: outset 6px;
+      outline-color: black;
+      outline-style: all;
+    }
+    #single_bun_img{
+      width: 50%;
+      display: inline-block;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #single_bun_img img{
+      margin: 0 auto;
+    }
+    #single_bun_desc{
+      display: inline-block;
+      text-align: center;
+      width: 48%;
+    }
+
+/*    Footer   */
+
+    footer{
+      font-size: 12px;
+      margin: 50px auto;
+      border-top: 2px solid #000;
+      height: 25px;
+      height: auto;
+      text-align: center;
+      padding: 0px 64px;
+      padding-top: 0px;
+    }
+    footer img{
+      width: 100px;
+      height: auto;
+    }
+    #copyright{
+      color: black;
+    }
+
