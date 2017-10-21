@@ -15,7 +15,13 @@ function updateNavCart(){
     // blar
 }
 
+
+//      Cart Constructor
+
+var cartObject = {"bun-types": null, "bun-count":null}
+
 var cart = JSON.parse(localStorage.getItem("cartObject"));
+var hasSavedCart = false;
 
 function newCart(){
 
@@ -26,15 +32,19 @@ function swapImgs(){
   var img = document.getElementById("single_bun_img");
   if (this.value == "6"){
     img.src = "./imgs/maple_apple_pecan_halfdozen.png";
+    localStorage.setItem("cartObject", this.value);
   }
   else if (this.value == "13") {
     img.src = "./imgs/maple_apple_pecan_dozen.png";
+    localStorage.setItem("cartObject", this.value);
   }
   else{
     img.src = "./imgs/maple_apple_pecan.png";
+    localStorage.setItem("cartObject", this.value);
   }
   return false;
 }
+
 
 
 /*** Document Load ****/
@@ -46,8 +56,9 @@ $(document).ready(function() {
   console.log("This is inside the jQuery ready func");
 
   // get Cart from localStorage
-  var cart = JSON.parse(localStorage.getItem("cartObject"));
-
+  if (hasSavedCart == true) {
+    var cart = JSON.parse(localStorage.getItem("cartObject"));
+  }
   // var hasCartObject = false;
 
   // if (cart === null) {
@@ -58,14 +69,19 @@ $(document).ready(function() {
   //   hascartObject = true;
   // }
 
+  // Prints value of Add to Cart Button
   $("#cart_button").click(function() {
-    if (document.getElementById("quantity_select").value == 13) {
-      console.log("Value =" + this.value);
-    } else if (document.getElementById("quantity_select").value == 6) {
-      console.log("Value =" + this.value);
+    butt = document.getElementById("quantity_select");
+    if (butt.value == 13) {
+      console.log("Value =" + butt.value);
+      localStorage.setItem("cartObject"{bun-count}, butt.value);
+    } else if (butt.value == 6) {
+      console.log("Value =" + butt.value);
     } else{
-      console.log("Value =" + this.value);
-    }
+      console.log("Value =" + butt.value);
+    };
+  });
+});
 
   // // update the page based on the animal properties
   // $("#animal-name").text(animal.name + " the " + animal.type);
@@ -90,6 +106,5 @@ $(document).ready(function() {
   //   }
   // });
 
-});
 
 
