@@ -4,6 +4,8 @@
     <title>DB - Shopping Cart</title>
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./cart.js"></script>
 </head>
 <body>
     <header>
@@ -16,14 +18,58 @@
         </nav>
     </header>
 
-    <div id="cart"></div>
-        <p>This is your Double Bun Shopping Cart</p>
-        <ul>
-            <li>Thing one</li>
-            <li>Thing 2</li>
-            <li>Thing 3</li>
-            <li>Thing four</li>
-        </ul>
+    <div class="cart"></div>
+        <table>
+          <thead>
+            <tr class="headRow">
+              <th class="image-col" rowspan="1">Item</th>
+              <th class="product-col" rowspan="1">-</th>
+              <th class="edit-col" rowspan="1">Edit</th>
+              <th class="quant-col" rowspan="1">Quantity</th>
+              <th class="subtotal-col" colspan="1">Subtotal</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr class="footRow">
+              <th class="imageCol" rowspan="1"></th>
+              <th class="productCol" rowspan="1"></th>
+              <th class="editCol" rowspan="1"></th>
+              <th class="quantCol" rowspan="1"></th>
+              <th class="subtotalCol" colspan="1">Subtotal Here?</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr class="product-row">
+              <td class="image-col"><a href="product_detail.html" title="Cranberry Bun"">
+                <img class="product-image" src="./imgs/cranberry.png"></a>
+              </td>
+
+              <td class="product-col">
+                <h4 class="product-name">
+                  <a href="index.html">Cranberry Bun</a>
+                </h4>
+              </td>
+
+              <td class="edit-col">
+                <a href="index.html" title="Remove item">Remove from Cart</a>
+              </td>
+
+              <td class="quant-col">
+                  <span>
+                    <input class="stepper" name="cart[13010009][qty]" data-cart-item-id="3153362" value="2" size="4" title="Qty" class="input-text qty" maxlength="6">
+
+                    <button class="stepper" data-type="minus"><img class="plusminus" src="./imgs/icon-minus.svg"></button>
+                    <button class="stepper" data-type="plus"><img class="plusminus" src="./imgs/icon-plus.svg"></button>
+                  </span>
+              </td>
+
+              <td class="subtotal-col">
+                <span class="price">$75.98</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
     </div>
 </div>
 <footer>

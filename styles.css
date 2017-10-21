@@ -45,10 +45,16 @@
     header{
       font-size: 20px;
       text-align: center;
+      height: 80px;
+      border-bottom: 1px solid #000;
     }
     header #logo {
-      margin: 0 auto;
+      float:  left;
       text-decoration: none;
+      width:  15%;
+    }
+    header img{
+      vertical-align: text-top;
     }
     header, nav{
       text-align: center;
@@ -61,12 +67,12 @@
     }
     nav a {
       color: white;
-      padding: 8px 20px;;
+      padding: 8px;
     }
     .menu{
-      border-top: 2px solid #000;
+      float:  right;
       height: 25px;
-      border-bottom: 2px solid #000;
+      width:80%;
 
     }
     .menu a {
@@ -75,8 +81,7 @@
       text-decoration: bold;
       text-align: center;
       text-decoration: none;
-      padding: 0px 64px;
-      padding-top: 0px;
+      padding: 10px 40px 10px 40px;
     }
     nav a:hover {
       background-color: #000;
@@ -120,19 +125,24 @@
     .a_bun a{
       text-decoration: none;
     }
-    .a_bun:hover{
-      outline: outset 6px;
-      outline-color: black;
-      outline-style: all;
+    .a_bun a:hover{
+      color: gray;
     }
-    #single_bun_img{
+    .a_bun img:hover{
+      opacity: 0.5;
+    }
+
+    #product_img_div{
       width: 50%;
       display: inline-block;
       margin: 0 auto;
       text-align: center;
     }
     #single_bun_img img{
+      width: 50%;
+      display: inline-block;
       margin: 0 auto;
+      text-align: center;
     }
     #single_bun_desc{
       display: inline-block;
@@ -140,12 +150,41 @@
       width: 48%;
     }
 
+    select {
+      height: 40px;
+      width: 25%;
+    }
+/*      Cart       */
+
+    .cart {
+        font-size: 10px;
+        line-height: 1.3em;
+    }
+
+    .data-table {
+        font-size: 10px;
+        width: 100%;
+    }
+
+    table   {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    button{
+      background: black;
+      color: white;
+      font-size: 16px;
+      margin: 15px;
+      padding: 15px 50px;
+    }
+
+
 /*    Footer   */
 
     footer{
       font-size: 12px;
       margin: 50px auto;
-      border-top: 2px solid #000;
+      border-top: 1px solid #000;
       height: 25px;
       height: auto;
       text-align: center;

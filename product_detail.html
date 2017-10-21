@@ -4,6 +4,9 @@
     <title>DB Bake Shop</title>
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./cart.js"></script>
+
 </head>
 <body>
     <header>
@@ -12,13 +15,13 @@
             <a href="./index.html">Home</a>
             <a href="./products.html">Products</a>
             <a href="./index.html">About Us</a>
-            <a href="./index.html">Locations</a>
+            <a href="./shopping_cart.html">Your Cart</a>
         </nav>
     </header>
 
     <div id="bun_body"></div>
-    <div id="single_bun_img">
-        <img src="./imgs/maple_apple_pecan.png">
+    <div id="product_img_div">
+        <img id="single_bun_img" src="./imgs/maple_apple_pecan.png">
     </div>
     <div id="single_bun_desc">
         <h3 id="bun_name"> Maple Apple Pecan </h3>
@@ -26,6 +29,15 @@
         <p>#8972 / IN STOCK</p>
         <p>We are a small bakery that specializes in cinnamon rolls,
         from our famous classic cinnamon roll to a variety of artisan flavors. Our shop is located in Pittsburgh, PA, but we ship fresh rolls to anywhere in the USA. Visitors to our site should be able to buy cinnamon rolls by different flavors:</p>
+
+         <select id="quantity_select">
+          <option value="1">Single</option>
+          <option value="6">Half Dozen</option>
+          <option value="13">Dozen</option>
+        </select>
+        </br>
+        <button id="cart_button">Add to Cart</button>
+
     </div>
 </div>
 <footer>
