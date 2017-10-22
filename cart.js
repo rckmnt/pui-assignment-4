@@ -10,6 +10,7 @@ var cartObject = {
 // var cart = JSON.parse(localStorage.getItem("cartObject"));
 var hasSavedCart = false;
 
+var cartArray = [];
 
 /********* Basic Functions ****/
 
@@ -35,6 +36,16 @@ function getLSCart(){
   c = localStorage.getItem("cartObject");
   console.log(c);
 }
+
+function itemsInCart(cartArray) {
+  tempTotal = 0;
+  for (var i = cartArray.length - 1; i >= 0; i--) {
+    tempTotal += JSON.parse(cartArray[i]["howmany"])
+  }
+  return tempTotal
+}
+
+JSON.parse(localStorage.cartArray)
 
 
 /********* Document Load ****/
@@ -64,11 +75,12 @@ $(document).ready(function() {
 
     // Puts clicked state into Cart Object / localStorage
     console.log(cartObject);
-    localStorage.setItem("cartObject", JSON.stringify(cartObject));
+    cartArray.push(cartObject);
+    localStorage.setItem("cartArray", JSON.stringify(cartArray));
 
     // Add items number to Cart(i) in Menu
     if (localStorage != "undefined"){
-      $("#cart_menu_txt").text("Your Cart (" + JSON.parse(localStorage.cartObject) + ")");
+      $("#cart_menu_txt").text("Your Cart (" + JSON.parse(localStorage.cartArray).length + ")");
     }
   });
 });
