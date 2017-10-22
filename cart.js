@@ -1,6 +1,12 @@
 /********* Cart Constructor ****/
 
-var cartObject = {"bun-types": null, "bun-count":null}
+var cartObject = {
+  "howmany": null,
+  "qty": null,
+  "second": null,
+  "third": null,
+}
+
 // var cart = JSON.parse(localStorage.getItem("cartObject"));
 var hasSavedCart = false;
 
@@ -14,7 +20,7 @@ function swapImgs(){
     img.src = "./imgs/maple_apple_pecan_halfdozen.png";
     localStorage.setItem("cartObject", this.value);
   }
-  else if (this.value == "13") {
+  else if (this.value == "12") {
     img.src = "./imgs/maple_apple_pecan_dozen.png";
     localStorage.setItem("cartObject", this.value);
   }
@@ -38,30 +44,31 @@ $(document).ready(function() {
   // Swap images on dropdown change
   swapImgs();
   document.getElementById("quantity_select").onchange = swapImgs;
-  console.log("This is inside the jQuery ready func");
-
-  $("#cart_menu_txt").text("Cart (" + localStorage.cartObject + ")");
 
   // var hasCartObject = false;
   getLSCart();
 
   // On Add to Click Button
   $("#cart_button").click(function() {
-    butt = document.getElementById("quantity_select");
-    if (butt.value == 13) {
-      console.log("Value =" + butt.value);
-      localStorage.setItem("cartObject", butt.value);
-    } else if (butt.value == 6) {
-      console.log("Value =" + butt.value);
-      localStorage.setItem("cartObject", butt.value);
-    } else{
-      console.log("Value =" + butt.value);
-      localStorage.setItem("cartObject", butt.value);
-    };
+    howmany = document.getElementById("howmany_select");
+    qty = document.getElementById("quantity_select");
+    second = document.getElementById("second_flavor");
+    third = document.getElementById("third_flavor");
+
+    cartObject = {
+      "howmany": howmany.value,
+      "qty": qty.value,
+      "second": second.value,
+      "third": third.value,
+    }
+
+    // Puts clicked state into Cart Object / localStorage
+    console.log(cartObject);
+    localStorage.setItem("cartObject", JSON.stringify(cartObject));
 
     // Add items number to Cart(i) in Menu
     if (localStorage != "undefined"){
-      $("#cart_menu_txt").text("Your Cart (" + localStorage.cartObject + ")");
+      $("#cart_menu_txt").text("Your Cart (" + JSON.parse(localStorage.cartObject) + ")");
     }
   });
 });

@@ -23,6 +23,9 @@
     p {
       font-size: 14px;
     }
+    p.thick {
+      font-weight: bold;
+    }
     a {
       color: black;
     }
@@ -36,9 +39,11 @@
     img a:hover{
       background-color: white;
     }
-    h1 {
-      font-size: 1.4em;
-    }
+    h1 {font-size: 1.4em;}
+    h2 {font-size: 1.2em;}
+    h3 {font-size: 1.0em;}
+    h4 {font-size: 1.0em;}
+
 
 /********    Menu    ********/
 
@@ -134,8 +139,9 @@
     #product_img_div{
       width: 50%;
       display: inline-block;
-      margin: 0 auto;
+      margin: 100px 0 0 0;
       text-align: center;
+      vertical-align: top;
     }
     #single_bun_img img{
       width: 50%;
@@ -149,9 +155,12 @@
       width: 48%;
     }
 
+/********      Product Details Buying       ********/
+
+
     select {
-      height: 40px;
-      width: 25%;
+      height: 30px;
+      width: 35%;
     }
 
     button{
