@@ -64,28 +64,37 @@ function cartTotal(){
   return subtotal;
 }
 
+function itemSubtotal(index){
+  var subtotal = 0;
+  subtotal = (3 * getItemsFromCart()[index]["howmany"] * getItemsFromCart()[index]["qty"]);
+  return subtotal;
+}
+
 
 //On Cart Page, populate Table with localStorage Values
 function updateCartTable(){
-  console.log('stupid');
-  // if (localStorage != "undefined"){
-  //         for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
+  if (localStorage != "undefined"){
+          for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
 
-  //           cartObject = getItemsFromCart()[i];
+            $("#cart").find('tbody').append($('<tr class="product-row" id="prod_' + i + '">'));
 
-  //           var howmany = cartObject["howmany"];
-  //           var qty = cartObject["qty"];
-  //           var second = cartObject["second"];
-  //           var third = cartObject["third"];
-  //           //$("#cart").find('tbody').append($('<tr class="product-row"><td class="image-col"> Image </td><td class="product-col"> Product </td> <td class="edit-col"> Edit </td> <td class="quant-col"> Qty </td> <td class="subtotal-col"> subtotal </td>'));
-  //           // $(".img-row").attr("src", "./imgs/maple_apple_pecan_halfdozen.png");
-  //           $(".product-row").text("Product name + " + second + third + " if exists");
-  //           $(".edit-row").text("click here to remove");
-  //           $(".quant-row").text(howmany);
-  //           $(".subtotal-row").text("Subtotal");
-  //         }
-  //   }
-  // return getItemsFromCart();
+            cartObject = getItemsFromCart()[i];
+
+            var howmany = cartObject["howmany"];
+            var qty = cartObject["qty"];
+            var second = cartObject["second"];
+            var third = cartObject["third"];
+
+            $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img> ').attr("src", "./imgs/maple_apple_pecan_halfdozen.png"))));
+            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Mainly Maple but also " + second + " and " +  third + " too")));
+            $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
+            $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text(howmany)));
+            $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text(itemSubtotal(i))));
+
+            $("#cart").find('tbody').append($('</tr>'));
+          }
+    }
+  return getItemsFromCart();
 }
 
 
