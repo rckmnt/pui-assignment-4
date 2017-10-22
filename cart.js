@@ -124,16 +124,20 @@ function updateCartTable(){
 
             // End of Table
             $("#cart").find('tbody').append($('</tr>'));
+
+            // Update Total Qty and Total $
+            $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + "pcs");
+            $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
           }
     }
   return getItemsFromCart();
 }
 
-
-
+function removeItemfromCart(){
   // On remove click
     // table remove
     // entire line
+}
 
 
 

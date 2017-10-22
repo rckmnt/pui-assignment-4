@@ -264,9 +264,9 @@
     }
     #refresh_button{
       float: right;
-      display: inline-block;
       background: #b9b9b9;
-      color: black;
+      display: inline-block;
+      width: 200px;
     }
     #buy_button{
       float: right;
