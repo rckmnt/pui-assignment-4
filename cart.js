@@ -28,6 +28,32 @@ function swapImgs(){
   return false;
 }
 
+function whichImg(quantity){
+  // returns proper img based on qty
+  if (quantity == "6"){
+    return "./imgs/maple_apple_pecan_halfdozen.png";
+  }
+  else if (quantity == "12") {
+    return "./imgs/maple_apple_pecan_dozen.png";
+  }
+  else{
+    return "./imgs/maple_apple_pecan.png";
+  }
+}
+
+function whichQty(quantity){
+  // returns proper string based on qty selected
+  if (quantity == "6"){
+    return "Half Dozen";
+  }
+  else if (quantity == "12") {
+    return "Dozen";
+  }
+  else{
+    return "Single";
+  }
+}
+
 function getLSCart(){
   // parses localStorage cartArray into object
   c = JSON.parse(localStorage.getItem("cartArray"));
@@ -70,12 +96,12 @@ function itemSubtotal(index){
   return subtotal;
 }
 
-
-//On Cart Page, populate Table with localStorage Values
 function updateCartTable(){
+  //On Cart Page, populate Table with localStorage Values
   if (localStorage != "undefined"){
           for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
 
+            // add table row
             $("#cart").find('tbody').append($('<tr class="product-row" id="prod_' + i + '">'));
 
             cartObject = getItemsFromCart()[i];
@@ -85,17 +111,29 @@ function updateCartTable(){
             var second = cartObject["second"];
             var third = cartObject["third"];
 
-            $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img> ').attr("src", "./imgs/maple_apple_pecan_halfdozen.png"))));
-            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Mainly Maple but also " + second + " and " +  third + " too")));
+            // add image-col  if 1, 6 or 12, swap img
+            $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img> ').attr("src", whichImg(qty)) )));
+            // add product-col write name of prodct - also add second and third flavors + qty
+            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Maple Buns ("+whichQty(qty)+") but also " + second + " and " +  third + " too")));
+            // add edit-col - nothing
             $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
-            $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text(howmany)));
-            $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text(itemSubtotal(i))));
+            // add quant-col - howmany
+            $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text(howmany + " pcs")));
+            // add subtotal-col = howmany * qty * price
+            $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
 
+            // End of Table
             $("#cart").find('tbody').append($('</tr>'));
           }
     }
   return getItemsFromCart();
 }
+
+
+
+  // On remove click
+    // table remove
+    // entire line
 
 
 
@@ -145,17 +183,5 @@ $(document).ready(function() {
 
 
 
-// JSON.parse(localStorage.cartArray).length
-
-  // add table row
-    // add image-col  if 1, 6 or 12, swap img
-    // add product-col write name of prodct - also add second and third flavors + qty
-    // add edit-col - nothing
-    // add quant-col - howmany
-    // add subtotal-col = howmany * qty * price
-
-  // On remove click
-    // table remove
-    // entire line
 
 

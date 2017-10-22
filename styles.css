@@ -241,21 +241,26 @@
       display: block;
     }
 
-    .product-col{
-      text-align: left;
-    }
     .image-col{
       text-align: left;
-      width: 120px,
+      width: 100px;
+    }
+    .product-col{
+      text-align: left;
+      width: 240px;
+      font-weight: bold;
     }
    .edit-col{
       text-align: left;
+      width:100px;
     }
    .quant-col{
-      text-align: left;
+      text-align: right;
+      width:100px;
     }
     .subtotal-col{
       text-align: right;
+      width:100px;
     }
     #buy_button{
       float: right;
