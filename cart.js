@@ -60,17 +60,20 @@ function getLSCart(){
   return c;
 }
 
-function numItemsInCart(cartArray) {
+function numItemsInCart() {
   tempTotal = 0;
-  for (var i = cartArray.length - 1; i >= 0; i--) {
-    tempTotal += JSON.parse(cartArray[i]["howmany"])
+  c = JSON.parse(localStorage.cartArray);
+  if (c != null) {
+    for (var i = c.length - 1; i >= 0; i--) {
+      tempTotal += parseInt(c[i]["howmany"]);
+    }
   }
   return tempTotal;
 }
 
 function updateMenuCart() {
   if (localStorage != "undefined"){
-    $("#cart_menu_txt").text("Your Cart (" + numItemsInCart(JSON.parse(localStorage.cartArray)) + ")");
+    $("#cart_menu_txt").text("Your Cart (" + JSON.parse(localStorage.cartArray).length + ")");
   }
   return false;
 }
@@ -154,6 +157,9 @@ $(document).ready(function() {
   // update full Cart Table
   // updateCartTable();
 
+  var alreadyCarted = JSON.parse(localStorage.getItem("cartArray"));
+
+
   // On Add to Click Button
   $("#cart_button").click(function() {
     howmany = document.getElementById("howmany_select");
@@ -170,8 +176,14 @@ $(document).ready(function() {
 
     // Puts clicked state into Cart Object / localStorage
     console.log(cartObject);
-    cartArray.push(cartObject);
-    localStorage.setItem("cartArray", JSON.stringify(cartArray));
+    if (alreadyCarted == null){
+      cartArray.push(cartObject);
+      localStorage.setItem("cartArray", JSON.stringify(cartArray));
+    }
+    else{
+      alreadyCarted.splice(-1, 0, cartObject);
+      localStorage.setItem("cartArray", JSON.stringify(alreadyCarted));
+    }
 
     // Swap images on dropdown change
     swapImgs();
