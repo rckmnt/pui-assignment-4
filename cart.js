@@ -61,11 +61,9 @@ function getLSCart(){
 }
 
 function numItemsInCart(cartArray) {
-  c = JSON.parse(localStorage.cartArray)
-
   tempTotal = 0;
-  for (var i = c.length - 1; i >= 0; i--) {
-    tempTotal += parseInt(c[i]["howmany"])
+  for (var i = cartArray.length - 1; i >= 0; i--) {
+    tempTotal += JSON.parse(cartArray[i]["howmany"])
   }
   return tempTotal;
 }
@@ -83,17 +81,13 @@ function getItemsFromCart() {
 }
 
 function cartTotal(){
-  var total = 0;
+  var subtotal = 0;
   if (localStorage != "undefined"){
       for (var i = getItemsFromCart().length - 1; i >= 0; i--){
-        total += itemSubtotal(i);
+        subtotal += (3 * getItemsFromCart()[i]["howmany"] * getItemsFromCart()[i]["qty"]);
       }
     }
-  return total;
-}
-
-function removeItem(index){
-
+  return subtotal;
 }
 
 function itemSubtotal(index){
@@ -130,10 +124,6 @@ function updateCartTable(){
 
             // End of Table
             $("#cart").find('tbody').append($('</tr>'));
-
-            // Update Total Qty and Total $
-            $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + "pcs");
-            $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
           }
     }
   return getItemsFromCart();
