@@ -14,46 +14,36 @@
             <a href="./index.html">Home</a>
             <a href="./products.html">Products</a>
             <a href="./index.html">About Us</a>
-            <a href="./shopping_cart.html">Your Cart</a>
+            <a href="./shopping_cart.html" id="cart_menu_txt">Your Cart</a>
         </nav>
     </header>
 
     <div class="cart"></div>
+    </br>
+    <h1>Your Cart</h1>
         <table>
           <thead>
             <tr class="headRow">
               <th class="image-col" rowspan="1">Item</th>
-              <th class="product-col" rowspan="1">-</th>
+              <th class="product-col" rowspan="1"></th>
               <th class="edit-col" rowspan="1">Edit</th>
               <th class="quant-col" rowspan="1">Quantity</th>
               <th class="subtotal-col" colspan="1">Subtotal</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr class="footRow">
-              <th class="imageCol" rowspan="1"></th>
-              <th class="productCol" rowspan="1"></th>
-              <th class="editCol" rowspan="1"></th>
-              <th class="quantCol" rowspan="1"></th>
-              <th class="subtotalCol" colspan="1">Subtotal Here?</th>
-            </tr>
-          </tfoot>
           <tbody>
             <tr class="product-row">
               <td class="image-col"><a href="product_detail.html" title="Cranberry Bun"">
                 <img class="product-image" src="./imgs/cranberry.png"></a>
               </td>
-
               <td class="product-col">
                 <h4 class="product-name">
                   <a href="index.html">Cranberry Bun</a>
                 </h4>
               </td>
-
               <td class="edit-col">
                 <a href="index.html" title="Remove item">Remove from Cart</a>
               </td>
-
               <td class="quant-col">
                   <span>
                     <input class="stepper" name="cart[13010009][qty]" data-cart-item-id="3153362" value="2" size="4" title="Qty" class="input-text qty" maxlength="6">
@@ -62,14 +52,48 @@
                     <button class="stepper" data-type="plus"><img class="plusminus" src="./imgs/icon-plus.svg"></button>
                   </span>
               </td>
-
               <td class="subtotal-col">
                 <span class="price">$75.98</span>
               </td>
             </tr>
 
+            <tr class="product-row">
+              <td class="image-col"><a href="product_detail.html" title="Pumpkin Spice Bun"">
+                <img class="product-image" src="./imgs/pumpkin_spice.png"></a>
+              </td>
+              <td class="product-col">
+                <h4 class="product-name">
+                  <a href="index.html">Pumpkin Spice Bun</a>
+                </h4>
+              </td>
+              <td class="edit-col">
+                <a href="index.html" title="Remove item">Remove from Cart</a>
+              </td>
+              <td class="quant-col">
+                  <span>
+                    <input class="stepper" value="2" size="4" title="Qty" class="input-text qty" maxlength="6">
+                    <button class="stepper" data-type="minus"><img class="plusminus" src="./imgs/icon-minus.svg"></button>
+                    <button class="stepper" data-type="plus"><img class="plusminus" src="./imgs/icon-plus.svg"></button>
+                  </span>
+              </td>
+              <td class="subtotal-col">
+                <span class="price">$75.98</span>
+              </td>
+            </tr>
           </tbody>
+          <tfoot>
+            <tr class="footRow">
+              <th class="image-col" rowspan="1"></th>
+              <th class="product-col" rowspan="1"></th>
+              <th class="edit-col" rowspan="1"></th>
+              <th class="quant-col" rowspan="1">Total Qty</th>
+              <th class="subtotal-col" colspan="1">Total $0.00</th>
+            </tr>
+          </tfoot>
         </table>
+        <button id="buy_button">Buy Now</button>
+      </br>
+      </br>
     </div>
 </div>
 <footer>

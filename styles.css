@@ -73,7 +73,6 @@
       float:  right;
       height: 25px;
       width:80%;
-
     }
     .menu a {
       color: black;
@@ -154,22 +153,7 @@
       height: 40px;
       width: 25%;
     }
-/*      Cart       */
 
-    .cart {
-        font-size: 10px;
-        line-height: 1.3em;
-    }
-
-    .data-table {
-        font-size: 10px;
-        width: 100%;
-    }
-
-    table   {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
     button{
       background: black;
       color: white;
@@ -178,6 +162,98 @@
       padding: 15px 50px;
     }
 
+
+
+
+/*      Cart       */
+
+    .cart {
+      font-size: 10px;
+      line-height: 1.3em;
+    }
+
+    .data-table {
+      font-size: 10px;
+      width: 100%;
+    }
+    th {
+      padding: 15px;
+      vertical-align: middle;
+    }
+    td {
+      padding: 15px;
+      vertical-align: middle;
+    }
+    table   {
+      border-collapse: collapse;
+      border-spacing: 0;
+      font-size: 14px;
+      background: white;
+      width: 100%;
+    }
+    table a{
+      text-decoration: none;
+    }
+    table a:hover{
+      color: black;
+      opacity: 0.5;
+    }
+    table span{
+      display: inline-block;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+
+    table img{
+      width: 100px;
+    }
+    table input{
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+    }
+    table .stepper{
+      display: inline-block;
+    }
+    table button{
+      background: white;
+      width: 30px;
+      height: 30px;
+      margin: 0 auto;
+      padding: 0;
+      text-align: center;
+      display: inline-block;
+    }
+    table button img{
+      height: 20px;
+      width: 20px;
+      float: left;
+      margin: 0 auto;
+      opacity: 0.5;
+      display: block;
+    }
+
+    .product-col{
+      text-align: left;
+    }
+    .image-col{
+      text-align: left;
+      width: 120px,
+    }
+   .edit-col{
+      text-align: left;
+    }
+   .quant-col{
+      text-align: left;
+    }
+    .subtotal-col{
+      text-align: right;
+    }
+    #buy_button{
+      float: right;
+      display: block;
+    }
 
 /*    Footer   */
 
