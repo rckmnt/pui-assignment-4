@@ -250,12 +250,13 @@
     }
     .product-col{
       text-align: left;
-      width: 240px;
+      width: 400px;
       font-weight: bold;
     }
    .edit-col{
       text-align: left;
-      width:100px;
+      width:70px;
+      float: right;
     }
    .quant-col{
       text-align: right;

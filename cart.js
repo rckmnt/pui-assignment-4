@@ -129,12 +129,13 @@ function updateCartTable(){
 
           cartObject = getItemsFromCart()[i];
 
+          // cartObject variables from locaStorage
           var howmany = cartObject["howmany"];
           var qty = cartObject["qty"];
           var second = cartObject["second"];
           var third = cartObject["third"];
 
-          // innerHTML
+          // innerHTML variables
           var p_id = "#prod_" + i +"";
           var link = "product_detail.html";
           var img = whichImg(qty);
@@ -143,20 +144,21 @@ function updateCartTable(){
           var two_three_bun = '<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ' + alt. '+ second + " + " +  third + " too </a>";
 
 
-          // add image-col  if 1, 6 or 12, swap img
+          // Table building listeners
+          // Image column
           $(".img-col").find($(p_id).append($('<td class="image-col"> <a href=' + link + '> <img class="product-image" src="' + img + '"></a>')));
-          // add product-col write name of prodct - also add second and third flavors + qty
+          // Product column
           if (second == 'None') {
             $(".product-col").find($(p_id).append($(one_bun)));
           }
           else{
              $(".product-col").find($(p_id).append($(two_three_bun)));
           }
-          // add edit-col - Remove button
+          // Edit Column - Remove button
           $(".edit-col").find($(p_id).append($('<td class="edit-col"> ').append(remove_button)));
-          // add quant-col - howmany
+          // Quant column
           $(".quant-col").find($(p_id).append($('<td class="quant-col"> ').text("x " + howmany)));
-          // add subtotal-col = howmany * qty * price
+          // Subtotal Column
           $(".subtotal-col").find($(p_id).append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
 
           // End of Table
@@ -190,7 +192,7 @@ $(document).ready(function() {
   // menu cart
   updateMenuCart();
 
-  if (page[0] == 'p'){  // if page begins with a 'p' for product...
+  if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge
 
       // toggleFlavors dropdowns
       $("#alt_flavors").hide();
@@ -200,6 +202,7 @@ $(document).ready(function() {
       swapImgs();
       document.getElementById("quantity_select").onchange = swapImgs;
   }
+
   // print CartArray object from localStorage
   console.log(getLSCart());
 
@@ -207,38 +210,36 @@ $(document).ready(function() {
   updateCartTable();
   $("#refresh_button").click(updateCartTable);
 
-  // var alreadyCarted = JSON.parse(localStorage.getItem("cartArray"));
-
 
   // On Add to Click Button
   $("#cart_button").click(function() {
-    howmany = document.getElementById("howmany_select");
-    qty = document.getElementById("quantity_select");
-    second = document.getElementById("second_flavor");
-    third = document.getElementById("third_flavor");
+      howmany = document.getElementById("howmany_select");
+      qty = document.getElementById("quantity_select");
+      second = document.getElementById("second_flavor");
+      third = document.getElementById("third_flavor");
 
-    cartObject = {
-      "howmany": howmany.value,
-      "qty": qty.value,
-      "second": second.value,
-      "third": third.value,
-    }
+      cartObject = {
+        "howmany": howmany.value,
+        "qty": qty.value,
+        "second": second.value,
+        "third": third.value,
+      }
 
+      // Puts clicked state into Cart Object / localStorage
+      var oldCart = {};
+      oldCart = getLSCart();
+      console.log("oldCart: " + oldCart);
+      console.log("cartObject: " + cartObject);
+      if (localStorage != null){
+        oldCart.push(cartObject);
+        localStorage.setItem("cartArray", JSON.stringify(oldCart));
+      }
 
-    // Puts clicked state into Cart Object / localStorage
-    console.log("cartObject: " + cartObject);
-    if (localStorage != null){
-      cartArray.push(cartObject);
-      localStorage.setItem("cartArray", JSON.stringify(cartArray));
-      // alreadyCarted.splice(-1, 0, cartObject);
-    }
-
-    // draw Cart Table
-    updateCartTable();
+      // draw Cart Table
+      updateCartTable();
 
   });
 });
-
 
 
 
