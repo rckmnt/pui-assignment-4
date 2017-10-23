@@ -1,4 +1,4 @@
-/********* Cart Constructor ****/
+/********* Cart Constructors ****/
 
 var cartObject = {
   "howmany": null,
@@ -8,7 +8,6 @@ var cartObject = {
 }
 
 var cartArray = [];
-
 
 var page = location.pathname.split('/').slice(-1)[0];
 
@@ -91,7 +90,7 @@ function numItemsInCart() {
 }
 
 function updateMenuCart() {
-  if (localStorage != "undefined"){
+  if (localStorage.length != 0){
     $("#cart_menu_txt").text("Your Cart (" + JSON.parse(localStorage.cartArray).length + ")");
   }
   return false;
@@ -168,12 +167,8 @@ function updateCartTable(){
           $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + " pcs");
           $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
         }
-  }
-  else {
-      $("#cart").find('tbody').append($('<h2> Nothing in Cart </h2'));
-  }
-
-  return getItemsFromCart();
+      }
+  return false;
 }
 
 function removeItemfromCart(){
@@ -211,6 +206,12 @@ $(document).ready(function() {
   $("#refresh_button").click(updateCartTable);
 
 
+  if (localStorage.length == 0) {
+    $("#cart").hide();
+    $("h1").append(' - Empty');
+  }
+
+
   // On Add to Click Button
   $("#cart_button").click(function() {
       howmany = document.getElementById("howmany_select");
@@ -226,17 +227,24 @@ $(document).ready(function() {
       }
 
       // Puts clicked state into Cart Object / localStorage
-      var oldCart = {};
-      oldCart = getLSCart();
-      console.log("oldCart: " + oldCart);
-      console.log("cartObject: " + cartObject);
-      if (localStorage != null){
+      if (localStorage.length != 0){
+        var oldCart;
+        oldCart = getLSCart();
+        console.log("oldCart: " + oldCart);
+        console.log("cartObject: " + getLSCart());
         oldCart.push(cartObject);
         localStorage.setItem("cartArray", JSON.stringify(oldCart));
+      }
+      else{
+        cartArray.push(cartObject);
+        localStorage.setItem("cartArray", JSON.stringify(cartArray));
       }
 
       // draw Cart Table
       updateCartTable();
+
+      // menu cart
+      updateMenuCart();
 
   });
 });
