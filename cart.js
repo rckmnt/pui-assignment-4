@@ -134,23 +134,30 @@ function updateCartTable(){
           var second = cartObject["second"];
           var third = cartObject["third"];
 
+          // innerHTML
+          var p_id = "#prod_" + i +"";
           var link = "product_detail.html";
+          var img = whichImg(qty);
+          var remove_button = $('<input type="button" id="remove" value="[remove]"/>');
+          var one_bun = '<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ')</a>';
+          var two_three_bun = '<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ' + alt. '+ second + " + " +  third + " too </a>";
+
 
           // add image-col  if 1, 6 or 12, swap img
-          $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img class="product-image"> ').attr("src", whichImg(qty)) )));
+          $(".img-col").find($(p_id).append($('<td class="image-col"> <a href=' + link + '> <img class="product-image" src="' + img + '"></a>')));
           // add product-col write name of prodct - also add second and third flavors + qty
           if (second == 'None') {
-            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ')</a>')));
+            $(".product-col").find($(p_id).append($(one_bun)));
           }
           else{
-             $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ' + alt. '+ second + " + " +  third + " too </a>")));
+             $(".product-col").find($(p_id).append($(two_three_bun)));
           }
           // add edit-col - Remove button
-          $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
+          $(".edit-col").find($(p_id).append($('<td class="edit-col"> ').append(remove_button)));
           // add quant-col - howmany
-          $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text("x " + howmany)));
+          $(".quant-col").find($(p_id).append($('<td class="quant-col"> ').text("x " + howmany)));
           // add subtotal-col = howmany * qty * price
-          $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
+          $(".subtotal-col").find($(p_id).append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
 
           // End of Table
           $("#cart").find('tbody').append($('</tr>'));
