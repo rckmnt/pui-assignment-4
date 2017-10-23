@@ -40,16 +40,16 @@ function swapImgs(){
 //   return false;
 // }
 
-// $(function() {
-//     $('#alt_flavors').hide();
-//     $('#quantity_select').change(function(){
-//         if($('#quantity_select').val() == 1) {
-//             $('#alt_flavors').hide();
-//         } else {
-//             $('#alt_flavors').show();
-//         }
-//     });
-// });
+$(function() {
+    $('#alt_flavors').hide();
+    $('#quantity_select').change(function(){
+        if($('#quantity_select').val() == 1) {
+            $('#alt_flavors').hide();
+        } else {
+            $('#alt_flavors').show();
+        }
+    });
+});
 
 
 
@@ -189,7 +189,7 @@ $(document).ready(function() {
   // update full Cart Table
   // updateCartTable();
 
-  var alreadyCarted = JSON.parse(localStorage.getItem("cartArray"));
+  // var alreadyCarted = JSON.parse(localStorage.getItem("cartArray"));
 
 
   // On Add to Click Button
@@ -209,14 +209,10 @@ $(document).ready(function() {
 
     // Puts clicked state into Cart Object / localStorage
     console.log("cartObject: " + cartObject);
-    if (alreadyCarted == null){
+    if (localStorage != null){
       cartArray.push(cartObject);
       localStorage.setItem("cartArray", JSON.stringify(cartArray));
-    }
-    else{
       // alreadyCarted.splice(-1, 0, cartObject);
-      cartArray.push(cartObject);
-      localStorage.setItem("cartArray", JSON.stringify(cartArray));
     }
 
     // Swap images on dropdown change
