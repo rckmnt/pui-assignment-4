@@ -10,6 +10,8 @@ var cartObject = {
 var cartArray = [];
 
 
+var page = location.pathname.split('/').slice(-1)[0];
+
 /********* Basic Product Page Functions ****/
 
 
@@ -119,10 +121,7 @@ function itemSubtotal(index){
 function updateCartTable(){
   //On Cart Page, populate Table with localStorage Values
 
-  if (localStorage == "undefined"){
-      $("#cart").find('tbody').append($('<h2> Nothing in Cart </h2'));
-      }
-  else{
+  if (localStorage.length){
         for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
 
           // add table row
@@ -148,18 +147,22 @@ function updateCartTable(){
           // add edit-col - Remove button
           $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
           // add quant-col - howmany
-          $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text(howmany + " pcs")));
+          $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text("x " + howmany)));
           // add subtotal-col = howmany * qty * price
           $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
 
           // End of Table
           $("#cart").find('tbody').append($('</tr>'));
 
-          // Update Total Qty and Total $
-          $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + "pcs");
+          // Table Foot
+          $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + " pcs");
           $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
-      }
-    }
+        }
+  }
+  else {
+      $("#cart").find('tbody').append($('<h2> Nothing in Cart </h2'));
+  }
+
   return getItemsFromCart();
 }
 
@@ -179,14 +182,16 @@ $(document).ready(function() {
   // menu cart
   updateMenuCart();
 
-  // toggleFlavors dropdowns
-  $("#alt_flavors").hide();
-  $("#quantity_select").click(showFlavorOptions);
+  if (page[0] == 'p'){
 
-  // Swap images on dropdown change
-  swapImgs();
-  document.getElementById("quantity_select").onchange = swapImgs;
+      // toggleFlavors dropdowns
+      $("#alt_flavors").hide();
+      $("#quantity_select").click(showFlavorOptions);
 
+      // Swap images on dropdown change
+      swapImgs();
+      document.getElementById("quantity_select").onchange = swapImgs;
+  }
   // print CartArray object from localStorage
   console.log(getLSCart());
 
@@ -220,10 +225,8 @@ $(document).ready(function() {
       // alreadyCarted.splice(-1, 0, cartObject);
     }
 
-
-
-    // Add items number to Cart(i) in Menu
-    updateMenuCart();
+    // draw Cart Table
+    updateCartTable();
 
   });
 });
