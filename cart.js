@@ -134,15 +134,16 @@ function updateCartTable(){
           var second = cartObject["second"];
           var third = cartObject["third"];
 
+          var link = "product_detail.html";
 
           // add image-col  if 1, 6 or 12, swap img
-          $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img> ').attr("src", whichImg(qty)) )));
+          $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img class="product-image"> ').attr("src", whichImg(qty)) )));
           // add product-col write name of prodct - also add second and third flavors + qty
           if (second == 'None') {
-            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Maple Buns (" + whichQty(qty) + ")")));
+            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ')</a>')));
           }
           else{
-            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Maple Buns (" + whichQty(qty) + ") + " + second + " + " +  third + " too")));
+             $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ' + alt. '+ second + " + " +  third + " too </a>")));
           }
           // add edit-col - Remove button
           $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
@@ -182,7 +183,7 @@ $(document).ready(function() {
   // menu cart
   updateMenuCart();
 
-  if (page[0] == 'p'){
+  if (page[0] == 'p'){  // if page begins with a 'p' for product...
 
       // toggleFlavors dropdowns
       $("#alt_flavors").hide();
