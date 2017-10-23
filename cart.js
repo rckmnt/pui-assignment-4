@@ -28,29 +28,21 @@ function swapImgs(){
   return false;
 }
 
-// function showFlavorOptions(){
-//   // sohws / hides alt flavors idepending on Single or not
-//   var q = $('#quantity_select option:selected').val()
-//   if (q == 1){
-//     $("#alt_flavors").hide();
-//   }
-//   else {
-//     $("#alt_flavors").show();
-//   }
-//   return false;
-// }
+function showFlavorOptions(){
+  // shows / hides alt flavors idepending on Single or not
+  var q = $('#quantity_select option:selected').val()
+  if (q == 1){
+    $("#alt_flavors").hide();
+  }
+  else {
+    $("#alt_flavors").show();
+  }
+  return false;
+}
 
-$(function() {
-    $('#alt_flavors').hide();
-    $('#quantity_select').change(function(){
-        if($('#quantity_select').val() == 1) {
-            $('#alt_flavors').hide();
-        } else {
-            $('#alt_flavors').show();
-        }
-    });
-});
 
+
+/********* Basic Cart Functions ****/
 
 
 function whichImg(quantity){
@@ -126,37 +118,47 @@ function itemSubtotal(index){
 
 function updateCartTable(){
   //On Cart Page, populate Table with localStorage Values
-  if (localStorage != "undefined"){
-          for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
 
-            // add table row
-            $("#cart").find('tbody').append($('<tr class="product-row" id="prod_' + i + '">'));
+  if (localStorage == "undefined"){
+      $("#cart").find('tbody').append($('<h2> Nothing in Cart </h2'));
+      }
+  else{
+        for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
 
-            cartObject = getItemsFromCart()[i];
+          // add table row
+          $("#cart").find('tbody').append($('<tr class="product-row" id="prod_' + i + '">'));
 
-            var howmany = cartObject["howmany"];
-            var qty = cartObject["qty"];
-            var second = cartObject["second"];
-            var third = cartObject["third"];
+          cartObject = getItemsFromCart()[i];
 
-            // add image-col  if 1, 6 or 12, swap img
-            $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img> ').attr("src", whichImg(qty)) )));
-            // add product-col write name of prodct - also add second and third flavors + qty
-            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Maple Buns ("+whichQty(qty)+") but also " + second + " and " +  third + " too")));
-            // add edit-col - nothing
-            $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
-            // add quant-col - howmany
-            $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text(howmany + " pcs")));
-            // add subtotal-col = howmany * qty * price
-            $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
+          var howmany = cartObject["howmany"];
+          var qty = cartObject["qty"];
+          var second = cartObject["second"];
+          var third = cartObject["third"];
 
-            // End of Table
-            $("#cart").find('tbody').append($('</tr>'));
 
-            // Update Total Qty and Total $
-            $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + "pcs");
-            $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
+          // add image-col  if 1, 6 or 12, swap img
+          $(".img-col").find($("#prod_" + i +"").append($('<td class="image-col"> ').append($('<img> ').attr("src", whichImg(qty)) )));
+          // add product-col write name of prodct - also add second and third flavors + qty
+          if (second == 'None') {
+            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Maple Buns (" + whichQty(qty) + ")")));
           }
+          else{
+            $(".product-col").find($("#prod_" + i +"").append($('<td class="product-col"> ').text("Maple Buns (" + whichQty(qty) + ") + " + second + " + " +  third + " too")));
+          }
+          // add edit-col - Remove button
+          $(".edit-col").find($("#prod_" + i +"").append($('<td class="edit-col"> ').text("Remove from Cart")));
+          // add quant-col - howmany
+          $(".quant-col").find($("#prod_" + i +"").append($('<td class="quant-col"> ').text(howmany + " pcs")));
+          // add subtotal-col = howmany * qty * price
+          $(".subtotal-col").find($("#prod_" + i +"").append($('<td class="subtotal-col"> ').text("$" + itemSubtotal(i) + ".00")));
+
+          // End of Table
+          $("#cart").find('tbody').append($('</tr>'));
+
+          // Update Total Qty and Total $
+          $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + "pcs");
+          $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
+      }
     }
   return getItemsFromCart();
 }
@@ -177,17 +179,20 @@ $(document).ready(function() {
   // menu cart
   updateMenuCart();
 
-  // toggleFalvs
-  // $("#alt_flavors").hide();
-  // $("#quantity_select").click(showFlavorOptions);
-  // document.getElementById("quantity_select").onchange = showFlavorOptions;
+  // toggleFlavors dropdowns
+  $("#alt_flavors").hide();
+  $("#quantity_select").click(showFlavorOptions);
 
+  // Swap images on dropdown change
+  swapImgs();
+  document.getElementById("quantity_select").onchange = swapImgs;
 
   // print CartArray object from localStorage
   console.log(getLSCart());
 
   // update full Cart Table
-  // updateCartTable();
+  updateCartTable();
+  $("#refresh_button").click(updateCartTable);
 
   // var alreadyCarted = JSON.parse(localStorage.getItem("cartArray"));
 
@@ -215,9 +220,6 @@ $(document).ready(function() {
       // alreadyCarted.splice(-1, 0, cartObject);
     }
 
-    // Swap images on dropdown change
-    swapImgs();
-    document.getElementById("quantity_select").onchange = swapImgs;
 
 
     // Add items number to Cart(i) in Menu
