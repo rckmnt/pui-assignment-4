@@ -119,6 +119,7 @@ function itemSubtotal(index){
 
 function updateCartTable(){
   //On Cart Page, populate Table with localStorage Values
+  // $(tbody).clear();
 
   if (localStorage.length){
         for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
@@ -172,7 +173,18 @@ function updateCartTable(){
   return false;
 }
 
-function removeItemfromCart(){
+function removeItemfromCart(indexToRemove){
+    // delete from LocalStorage
+    oldCart = getLSCart();
+    console.log("oldCart: " + oldCart);
+    var modifiedCart = []
+    modifiedCart = oldCart.splice(indexToRemove, 1);
+    localStorage.setItem("cartArray", JSON.stringify(modifiedCart));
+
+    // remove tr row using index from above
+    var id = "#prod_" + indexToRemove;
+    $("tr.product-row"+id).remove();
+
 }
 
 
@@ -244,13 +256,14 @@ $(document).ready(function() {
       updateMenuCart();
   });
 
-  // Event listener for Remove
+  // Event listener for REMOVE button
   $("input").click(function(event) {
-    // table remove
-    var indexClicked = this.id;
-    console.log(indexClicked);
-    // localStorage.removeItem("savedAnimal");
-    // entire line
+    // find which index you clicked
+    var idClicked = this.id;
+    index = idClicked[idClicked.length - 1];
+
+    removeItemfromCart(index);
+    updateCartTable();
   });
 
 });
