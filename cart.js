@@ -10,7 +10,7 @@ var cartObject = {
 var cartArray = [];
 
 
-/********* Basic Functions ****/
+/********* Basic Product Page Functions ****/
 
 
 function swapImgs(){
@@ -27,6 +27,31 @@ function swapImgs(){
   }
   return false;
 }
+
+// function showFlavorOptions(){
+//   // sohws / hides alt flavors idepending on Single or not
+//   var q = $('#quantity_select option:selected').val()
+//   if (q == 1){
+//     $("#alt_flavors").hide();
+//   }
+//   else {
+//     $("#alt_flavors").show();
+//   }
+//   return false;
+// }
+
+// $(function() {
+//     $('#alt_flavors').hide();
+//     $('#quantity_select').change(function(){
+//         if($('#quantity_select').val() == 1) {
+//             $('#alt_flavors').hide();
+//         } else {
+//             $('#alt_flavors').show();
+//         }
+//     });
+// });
+
+
 
 function whichImg(quantity){
   // returns proper img based on qty
@@ -144,12 +169,19 @@ function removeItemfromCart(){
 
 
 
+
 /********* Document Load ****/
 
 $(document).ready(function() {
 
   // menu cart
   updateMenuCart();
+
+  // toggleFalvs
+  // $("#alt_flavors").hide();
+  // $("#quantity_select").click(showFlavorOptions);
+  // document.getElementById("quantity_select").onchange = showFlavorOptions;
+
 
   // print CartArray object from localStorage
   console.log(getLSCart());
@@ -174,15 +206,17 @@ $(document).ready(function() {
       "third": third.value,
     }
 
+
     // Puts clicked state into Cart Object / localStorage
-    console.log(cartObject);
+    console.log("cartObject: " + cartObject);
     if (alreadyCarted == null){
       cartArray.push(cartObject);
       localStorage.setItem("cartArray", JSON.stringify(cartArray));
     }
     else{
-      alreadyCarted.splice(-1, 0, cartObject);
-      localStorage.setItem("cartArray", JSON.stringify(alreadyCarted));
+      // alreadyCarted.splice(-1, 0, cartObject);
+      cartArray.push(cartObject);
+      localStorage.setItem("cartArray", JSON.stringify(cartArray));
     }
 
     // Swap images on dropdown change
