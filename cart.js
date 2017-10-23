@@ -138,9 +138,9 @@ function updateCartTable(){
           var p_id = "#prod_" + i +"";
           var link = "product_detail.html";
           var img = whichImg(qty);
-          var remove_button = $('<input type="button" id="remove" value="[remove]"/>');
+          var remove_button = $('<input type="button" id="remove" value="remove"/>');
           var one_bun = '<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ')</a>';
-          var two_three_bun = '<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ' + alt. '+ second + " + " +  third + " too </a>";
+          var two_three_bun = '<td class="product-col"> <a href=' + link + '> Maple Buns (' + whichQty(qty) + ') + '+ second + " + " +  third + " too </a>";
 
 
           // Table building listeners
@@ -155,6 +155,7 @@ function updateCartTable(){
           }
           // Edit Column - Remove button
           $(".edit-col").find($(p_id).append($('<td class="edit-col"> ').append(remove_button)));
+          $(".edit-col").find($(remove_button).attr('id', 'remove_' + i));
           // Quant column
           $(".quant-col").find($(p_id).append($('<td class="quant-col"> ').text("x " + howmany)));
           // Subtotal Column
@@ -172,11 +173,7 @@ function updateCartTable(){
 }
 
 function removeItemfromCart(){
-  // On remove click
-    // table remove
-    // entire line
 }
-
 
 
 
@@ -245,11 +242,16 @@ $(document).ready(function() {
 
       // menu cart
       updateMenuCart();
-
   });
+
+  // Event listener for Remove
+  $("input").click(function(event) {
+    // table remove
+    var indexClicked = this.id;
+    console.log(indexClicked);
+    // localStorage.removeItem("savedAnimal");
+    // entire line
+  });
+
 });
-
-
-
-
 
