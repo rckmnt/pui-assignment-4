@@ -90,14 +90,22 @@ function numItemsInCart() {
 }
 
 function updateMenuCart() {
-  if (localStorage.length != 0){
+  if (localStorage.getItem("cartArray")  === null){
+    $("#cart_menu_txt").text("Your Cart (0)");
+  }
+  else{
     $("#cart_menu_txt").text("Your Cart (" + JSON.parse(localStorage.cartArray).length + ")");
   }
   return false;
 }
 
 function getItemsFromCart() {
-  stuff = JSON.parse(localStorage.cartArray);
+  if (localStorage.getItem("cartArray")  === null) {
+    stuff = false
+  }
+  else{
+      stuff = JSON.parse(localStorage.cartArray);
+  }
   return stuff;
 }
 
@@ -120,6 +128,8 @@ function itemSubtotal(index){
 function updateCartTable(){
   //On Cart Page, populate Table with localStorage Values
   // $(tbody).clear();
+
+  // Check is Local storage has content...
 
   if (localStorage.length){
         for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
@@ -215,11 +225,10 @@ $(document).ready(function() {
   $("#refresh_button").click(updateCartTable);
 
 
-  if (localStorage.length == 0) {
+  if (localStorage.getItem("cartArray")  === null) {
     $("#cart").hide();
     $("h1").append(' - Empty');
   }
-
 
   // On Add to Click Button
   $("#cart_button").click(function() {
@@ -236,7 +245,7 @@ $(document).ready(function() {
       }
 
       // Puts clicked state into Cart Object / localStorage
-      if (localStorage.length != 0){
+      if (localStorage.cartArray != null){
         var oldCart;
         oldCart = getLSCart();
         console.log("oldCart: " + oldCart);
