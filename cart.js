@@ -1,5 +1,10 @@
 /********* Cart Constructors ****/
 
+var howmany;
+var qty;
+var second;
+var third;
+
 var cartObject = {
   "howmany": null,
   "qty": null,
@@ -88,7 +93,9 @@ function numItemsInCart() {
   }
   return tempTotal;
 }
-
+function guid(){
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+}
 function updateMenuCart() {
   if (localStorage.getItem("cartArray")  === null){
     $("#cart_menu_txt").text("Your Cart (0)");
@@ -126,16 +133,11 @@ function itemSubtotal(index){
 }
 
 function updateCartTable(){
-  //On Cart Page, populate Table with localStorage Values
-  // $(tbody).clear();
+  // On Cart Page, populate Table with localStorage Values
 
-  // Check is Local storage has content...
-
-  if (localStorage.length){
+  // Check if Local storage has content...
+  if (localStorage.getItem("cartArray")  != null){
         for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
-
-          // add table row
-          $("#cart").find('tbody').append($('<tr class="product-row" id="prod_' + i + '">'));
 
           cartObject = getItemsFromCart()[i];
 
@@ -144,9 +146,14 @@ function updateCartTable(){
           var qty = cartObject["qty"];
           var second = cartObject["second"];
           var third = cartObject["third"];
+          var guid = cartObject["guid"];
+
+          // add table row
+          $("#cart").find('tbody').append($('<tr class="product-row" id="prod_' + guid + '">'));
+
 
           // innerHTML variables
-          var p_id = "#prod_" + i +"";
+          var p_id = "#prod_" + guid +"";
           var link = "product_detail.html";
           var img = whichImg(qty);
           var remove_button = $('<input type="button" id="remove" value="remove"/>');
@@ -166,7 +173,7 @@ function updateCartTable(){
           }
           // Edit Column - Remove button
           $(".edit-col").find($(p_id).append($('<td class="edit-col"> ').append(remove_button)));
-          $(".edit-col").find($(remove_button).attr('id', 'remove_' + i));
+          $(".edit-col").find($(remove_button).attr('id', 'remove_' + guid));
           // Quant column
           $(".quant-col").find($(p_id).append($('<td class="quant-col"> ').text("x " + howmany)));
           // Subtotal Column
@@ -183,18 +190,27 @@ function updateCartTable(){
   return false;
 }
 
-function removeItemfromCart(indexToRemove){
+function removeItemfromCart(guid){
     // delete from LocalStorage
-    oldCart = getLSCart();
-    console.log("oldCart: " + oldCart);
-    var modifiedCart = []
-    modifiedCart = oldCart.splice(indexToRemove, 1);
+    var removedCart;
+    removedCart = getLSCart();
+    console.log("removedCart: " + removedCart);
+    var modifiedCart = [];
+    modifiedCart = removedCart.splice(guid, 1);
+    removedCart.push(cartObject);
     localStorage.setItem("cartArray", JSON.stringify(modifiedCart));
 
     // remove tr row using index from above
-    var id = "#prod_" + indexToRemove;
-    $("tr.product-row"+id).remove();
+    var id = "#prod_" + guid;
+    $("tr#prod_"+id).remove();
+    // updateCartTable();
+}
 
+
+function printGUIDs() {
+  for (var i = JSON.parse(localStorage.cartArray).length-1; i >= 0; i--) {
+    console.log(JSON.parse(localStorage.cartArray)[i]["guid"])
+  }
 }
 
 
@@ -206,7 +222,7 @@ $(document).ready(function() {
   // menu cart
   updateMenuCart();
 
-  if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge
+  if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge i know
 
       // toggleFlavors dropdowns
       $("#alt_flavors").hide();
@@ -237,15 +253,16 @@ $(document).ready(function() {
       second = document.getElementById("second_flavor");
       third = document.getElementById("third_flavor");
 
-      cartObject = {
+      var cartObject = {
         "howmany": howmany.value,
         "qty": qty.value,
         "second": second.value,
         "third": third.value,
+        "guid": guid(),
       }
 
       // Puts clicked state into Cart Object / localStorage
-      if (localStorage.cartArray != null){
+      if (localStorage.getItem("cartArray")  != null){
         var oldCart;
         oldCart = getLSCart();
         console.log("oldCart: " + oldCart);
