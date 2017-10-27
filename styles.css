@@ -197,6 +197,7 @@
       font-size: 14px;
       background: white;
       width: 100%;
+      vertical-align: middle;
     }
     table a{
       text-decoration: none;
@@ -222,6 +223,7 @@
       height: 30px;
       margin: 10px;
       border: 1px solid #8C8A8A;
+      vertical-align: bottom;
     }
     table .stepper{
       display: inline-block;

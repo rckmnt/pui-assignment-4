@@ -16,8 +16,8 @@ var cartArray = [];
 
 var page = location.pathname.split('/').slice(-1)[0];
 
-/********* Basic Product Page Functions ****/
 
+/********* Basic Product Page Functions ****/
 
 function swapImgs(){
   //swaps product img on select dropdown change
@@ -134,10 +134,16 @@ function itemSubtotal(index){
   return subtotal;
 }
 
+function printGUIDs() {
+  for (var i = JSON.parse(localStorage.cartArray).length-1; i >= 0; i--) {
+    console.log(JSON.parse(localStorage.cartArray)[i]["guid"])
+  }
+}
+
 function updateCartTable(){
 
-  //Clear existing TRs
-  $("tr").remove();
+  //Clear existing rows
+  $("tbody tr").remove();
 
   // On Cart Page, populate Table with localStorage Values
   if (localStorage.getItem("cartArray")  != null){
@@ -217,14 +223,13 @@ function removeItemfromCart(GuidToRemove){
 }
 
 
-function printGUIDs() {
-  for (var i = JSON.parse(localStorage.cartArray).length-1; i >= 0; i--) {
-    console.log(JSON.parse(localStorage.cartArray)[i]["guid"])
-  }
-}
+
+
+
 
 
 /********* Document Load ****/
+
 
 $(document).ready(function() {
 
@@ -294,7 +299,7 @@ $(document).ready(function() {
   updateCartTable();
 
   $("#refresh_button").click(function() {
-    updateCartTable();
+      updateCartTable();
   });
 
   if (localStorage.getItem("cartArray")  === null) {
@@ -309,7 +314,7 @@ $(document).ready(function() {
     // TODO why don't the Buttons 'refresh' and work after clicked once?
     ID = this.id;
     var clickGuid = ID.split('_')[1];
-    console.log("Removing:" + clickGuid);
+    console.log("Clicked ID:" + clickGuid);
     removeItemfromCart(clickGuid);
     updateMenuCart();
     updateCartTable();
