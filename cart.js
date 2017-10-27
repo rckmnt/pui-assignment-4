@@ -35,7 +35,7 @@ function swapImgs(){
 }
 
 function showFlavorOptions(){
-  // shows / hides alt flavors idepending on Single or not
+  // shows-hides alt flavors depending on Single or not
   var q = $('#quantity_select option:selected').val()
   if (q == 1){
     $("#alt_flavors").hide();
@@ -95,10 +95,12 @@ function numItemsInCart() {
 }
 
 function guid() {
+  // GUID for tracking objects
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
 
 function updateMenuCart() {
+  // updates header menu number of objects in cart
   if (localStorage.getItem("cartArray")  === null){
     $("#cart_menu_txt").text("Your Cart (0)");
   }
@@ -109,6 +111,7 @@ function updateMenuCart() {
 }
 
 function getItemsFromCart() {
+  // returns cart items in object
   if (localStorage.getItem("cartArray")  === null) {
     stuff = false
   }
@@ -119,6 +122,7 @@ function getItemsFromCart() {
 }
 
 function cartTotal(){
+  // $ total of entire cart
   var subtotal = 0;
   if (localStorage != "undefined"){
       for (var i = getItemsFromCart().length - 1; i >= 0; i--){
@@ -129,18 +133,21 @@ function cartTotal(){
 }
 
 function itemSubtotal(index){
+  // individual items subtotal $
   var subtotal = 0;
   subtotal = (3 * getItemsFromCart()[index]["howmany"] * getItemsFromCart()[index]["qty"]);
   return subtotal;
 }
 
 function printGUIDs() {
+  // print all GUIDs in LS
   for (var i = JSON.parse(localStorage.cartArray).length-1; i >= 0; i--) {
     console.log(JSON.parse(localStorage.cartArray)[i]["guid"])
   }
 }
 
 function updateCartTable(){
+  // redraw entire cart table from LS
 
   //Clear existing rows
   $("tbody tr").remove();
@@ -212,13 +219,9 @@ function removeItemfromCart(GuidToRemove){
     // delete from LocalStorage
     var removedCart;
     removedCart = getLSCart();
-
-    // TODO why Splice and not these others? Why not just a 'delete' function?
     removedCart.splice(index, 1);
-    //delete removedCart[index];
-    //removedCart.pop(index);
 
-
+    // put new Cart in LS
     localStorage.setItem("cartArray", JSON.stringify(removedCart));
 }
 
@@ -232,13 +235,13 @@ function removeItemfromCart(GuidToRemove){
 $(document).ready(function() {
 
 
-// ********************* All Pages
+  // ***** All Pages  *****
 
   // menu cart
   updateMenuCart();
 
 
-// ********************* Product Page
+  // ***** Product Page *****
 
   if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge i admit
 
@@ -251,13 +254,13 @@ $(document).ready(function() {
       document.getElementById("quantity_select").onchange = swapImgs;
   }
 
-  // On Add to Cart Button
+  // ***** Add to Cart button *****
 
   $("#cart_button").click(function() {
-      howmany = document.getElementById("howmany_select");
-      qty = document.getElementById("quantity_select");
-      second = document.getElementById("second_flavor");
-      third = document.getElementById("third_flavor");
+      var howmany = document.getElementById("howmany_select");
+      var qty = document.getElementById("quantity_select");
+      var second = document.getElementById("second_flavor");
+      var third = document.getElementById("third_flavor");
 
       var cartObject = {
         "howmany": howmany.value,
@@ -288,7 +291,7 @@ $(document).ready(function() {
       updateMenuCart();
   });
 
-  // ********************* Cart Page
+  // ***** Cart Page  *****
 
   // print CartArray object from localStorage
   console.log(getLSCart());
@@ -296,17 +299,19 @@ $(document).ready(function() {
   // update full Cart Table
   updateCartTable();
 
+  // refresh button
   $("#refresh_button").click(function() {
       updateCartTable();
       console.log("im wokring");
   });
 
+  // if no items, Cart Empty
   if (localStorage.getItem("cartArray").length < 3) {
     $("#cart").hide();
     $("h1").append(' - Empty');
   }
 
-  // Event listener for REMOVE button
+  // ***** Remove button *****
 
   $(".edit-col").click(function()  {
 
@@ -329,9 +334,6 @@ $(document).ready(function() {
     if (localStorage.getItem("cartArray").length < 3) {
         $("h1").append(' - Empty');
     }
-
   });
-
-
 });
 
