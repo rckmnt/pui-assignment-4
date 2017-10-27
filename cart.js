@@ -198,17 +198,22 @@ function removeItemfromCart(GuidToRemove){
 
     // find Index of localStorage which contains the GuidToRemove
     let array = JSON.parse(localStorage.cartArray);
-    let obj = array.find(x => x.GuidToRemove == GuidToRemove);
+    let obj = array.find(x => x.guid == GuidToRemove);
     let index = array.indexOf(obj);
     console.log(" i = " + index);
+    console.log("Removing Item: " + GuidToRemove);
 
     // delete from LocalStorage
     var removedCart;
     removedCart = getLSCart();
-    removedCart.pop(index);
-    console.log("removedCart: " + removedCart.length);
+
+    // TODO why Splice and not these others? Why not just a 'delete' function?
+    removedCart.splice(index, 1);
+    //delete removedCart[index];
+    //removedCart.pop(index);
+
+
     localStorage.setItem("cartArray", JSON.stringify(removedCart));
-    updateCartTable();
 }
 
 
@@ -219,13 +224,18 @@ function printGUIDs() {
 }
 
 
-
 /********* Document Load ****/
 
 $(document).ready(function() {
 
+
+// ********************* All Pages
+
   // menu cart
   updateMenuCart();
+
+
+// ********************* Product Page
 
   if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge i admit
 
@@ -238,20 +248,8 @@ $(document).ready(function() {
       document.getElementById("quantity_select").onchange = swapImgs;
   }
 
-  // print CartArray object from localStorage
-  console.log(getLSCart());
+  // On Add to Cart Button
 
-  // update full Cart Table
-  updateCartTable();
-  $("#refresh_button").click(updateCartTable);
-
-
-  if (localStorage.getItem("cartArray")  === null) {
-    $("#cart").hide();
-    $("h1").append(' - Empty');
-  }
-
-  // On Add to Click Button
   $("#cart_button").click(function() {
       howmany = document.getElementById("howmany_select");
       qty = document.getElementById("quantity_select");
@@ -289,15 +287,33 @@ $(document).ready(function() {
 
   // ********************* Cart Page
 
+  // print CartArray object from localStorage
+  console.log(getLSCart());
+
+  // update full Cart Table
+  updateCartTable();
+
+  $("#refresh_button").click(function() {
+    updateCartTable();
+  });
+
+  if (localStorage.getItem("cartArray")  === null) {
+    $("#cart").hide();
+    $("h1").append(' - Empty');
+  }
+
   // Event listener for REMOVE button
+
   $("input").click(function() {
     // find which index you clicked
-    var boo = $("input[value='remove']");
-    console.log("Removing:" + boo );
-    var clickGuid = $("input[value='remove']").attr("id").split('_')[1];
+    // TODO why don't the Buttons 'refresh' and work after clicked once?
+    ID = this.id;
+    var clickGuid = ID.split('_')[1];
     console.log("Removing:" + clickGuid);
     removeItemfromCart(clickGuid);
     updateMenuCart();
+    updateCartTable();
+    //location.reload(true);
   });
 
 
