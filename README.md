@@ -1,14 +1,14 @@
-PUI A3: Web Basics
+PUI A4: JS Shopping Cart
 ========
 
-This repository is a basic site of three base html pages and css.
+This repository is a basic site of four base html pages, css, and a shopping cart.
 
 ## Some things I learned, some trouble points
 
-* Using git from the command line in OSX is not bad and from Windows it's actually ok too.
-* It's a pain to go back and reorganize your CSS if you just do it willy-nilly and need to refactor later.
-* Different browsers and different computers seem to have different css settings baked in. For example, Chrome on my laptop rendered all fine, but Chrome on my desktop has some 'a web-kit link' enabled by default and made the site look awful, so I had to include that one property just in case.
+* It gets messy mizing jQuery and JS sometimes.
+* Reusable functions are your friends.
 * Things just look different in different browsers.
-* I totally see why CMS's are the way to go. This assignment brought me back to the Dreamweaver days.
+* jQuery is way shorter and easier.
+* I totally see why there are a million JS libraries today after writing all this myself.
 
 That's it. Thanks, Scott
