@@ -94,7 +94,7 @@ function numItemsInCart() {
   return tempTotal;
 }
 
-function guid(){
+function guid() {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
 
@@ -135,9 +135,11 @@ function itemSubtotal(index){
 }
 
 function updateCartTable(){
-  // On Cart Page, populate Table with localStorage Values
 
-  // Check if Local storage has content...
+  //Clear existing TRs
+  $("tr").remove();
+
+  // On Cart Page, populate Table with localStorage Values
   if (localStorage.getItem("cartArray")  != null){
         for (var i = getItemsFromCart().length - 1; i >= 0; i--) {
 
@@ -192,25 +194,21 @@ function updateCartTable(){
   return false;
 }
 
-function removeItemfromCart(guid){
+function removeItemfromCart(GuidToRemove){
 
-    // look through LS, find the GUID and remove it from table
-    for (var i = JSON.parse(localStorage.cartArray).length-1; i >= 0; i--) {
-      var lookupGUID = JSON.parse(localStorage.cartArray)[i]["guid"];
-      var indexToDelete = null;
-      if (lookupGUID == guid){
-              $("tr#prod_"+guid).remove();
-              indexToDelete = i;
-      }
-    }
-    console.log(" i = " + indexToDelete);
+    // find Index of localStorage which contains the GuidToRemove
+    let array = JSON.parse(localStorage.cartArray);
+    let obj = array.find(x => x.GuidToRemove == GuidToRemove);
+    let index = array.indexOf(obj);
+    console.log(" i = " + index);
+
     // delete from LocalStorage
     var removedCart;
     removedCart = getLSCart();
-    delete removedCart[indexToDelete];
-    console.log("removedCart: " + removedCart);
+    removedCart.pop(index);
+    console.log("removedCart: " + removedCart.length);
     localStorage.setItem("cartArray", JSON.stringify(removedCart));
-
+    updateCartTable();
 }
 
 
@@ -229,7 +227,7 @@ $(document).ready(function() {
   // menu cart
   updateMenuCart();
 
-  if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge i know
+  if (page[0] == 'p'){  // if page begins with a 'p' for product... total kludge i admit
 
       // toggleFlavors dropdowns
       $("#alt_flavors").hide();
@@ -289,16 +287,16 @@ $(document).ready(function() {
       updateMenuCart();
   });
 
+  // ********************* Cart Page
+
   // Event listener for REMOVE button
-  $("input[value='remove']").click(function() {
+  $("input").click(function() {
     // find which index you clicked
-    var index = $("input[value='remove']").attr("id").split('_')[1];
-    // $("input").attr("id")
-    console.log($("input[value='remove']"));
-    console.log($("input[value='remove']").attr("id"));
-    console.log(index);
-    removeItemfromCart(index);
-    updateCartTable;
+    var boo = $("input[value='remove']");
+    console.log("Removing:" + boo );
+    var clickGuid = $("input[value='remove']").attr("id").split('_')[1];
+    console.log("Removing:" + clickGuid);
+    removeItemfromCart(clickGuid);
     updateMenuCart();
   });
 
