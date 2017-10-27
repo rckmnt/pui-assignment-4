@@ -226,8 +226,6 @@ function removeItemfromCart(GuidToRemove){
 
 
 
-
-
 /********* Document Load ****/
 
 
@@ -300,25 +298,38 @@ $(document).ready(function() {
 
   $("#refresh_button").click(function() {
       updateCartTable();
+      console.log("im wokring");
   });
 
-  if (localStorage.getItem("cartArray")  === null) {
+  if (localStorage.getItem("cartArray").length < 3) {
     $("#cart").hide();
     $("h1").append(' - Empty');
   }
 
   // Event listener for REMOVE button
 
-  $("input").click(function() {
+  $(".edit-col").click(function()  {
+
     // find which index you clicked
-    // TODO why don't the Buttons 'refresh' and work after clicked once?
-    ID = this.id;
+    var ID = $(this).children().attr('id');
     var clickGuid = ID.split('_')[1];
+
     console.log("Clicked ID:" + clickGuid);
+
+    // Remove rows on Remove button clicked
+    var rowToDelete = $("tbody tr").find("#remove_"+clickGuid);
+    rowToDelete = rowToDelete.parent().parent().remove();
+
     removeItemfromCart(clickGuid);
     updateMenuCart();
-    updateCartTable();
-    //location.reload(true);
+
+    // Replace the Totals
+    $("#cart_qty").text("Total Qty: " + numItemsInCart(cartArray) + " pcs");
+    $("#cart_total").text("Total Cost: $" + cartTotal() + ".00");
+    if (localStorage.getItem("cartArray").length < 3) {
+        $("h1").append(' - Empty');
+    }
+
   });
 
 
