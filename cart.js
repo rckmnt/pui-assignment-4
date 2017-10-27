@@ -93,9 +93,11 @@ function numItemsInCart() {
   }
   return tempTotal;
 }
+
 function guid(){
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
+
 function updateMenuCart() {
   if (localStorage.getItem("cartArray")  === null){
     $("#cart_menu_txt").text("Your Cart (0)");
@@ -191,19 +193,24 @@ function updateCartTable(){
 }
 
 function removeItemfromCart(guid){
+
+    // look through LS, find the GUID and remove it from table
+    for (var i = JSON.parse(localStorage.cartArray).length-1; i >= 0; i--) {
+      var lookupGUID = JSON.parse(localStorage.cartArray)[i]["guid"];
+      var indexToDelete = null;
+      if (lookupGUID == guid){
+              $("tr#prod_"+guid).remove();
+              indexToDelete = i;
+      }
+    }
+    console.log(" i = " + indexToDelete);
     // delete from LocalStorage
     var removedCart;
     removedCart = getLSCart();
+    delete removedCart[indexToDelete];
     console.log("removedCart: " + removedCart);
-    var modifiedCart = [];
-    modifiedCart = removedCart.splice(guid, 1);
-    removedCart.push(cartObject);
-    localStorage.setItem("cartArray", JSON.stringify(modifiedCart));
+    localStorage.setItem("cartArray", JSON.stringify(removedCart));
 
-    // remove tr row using index from above
-    var id = "#prod_" + guid;
-    $("tr#prod_"+id).remove();
-    // updateCartTable();
 }
 
 
@@ -283,14 +290,18 @@ $(document).ready(function() {
   });
 
   // Event listener for REMOVE button
-  $("input").click(function(event) {
+  $("input[value='remove']").click(function() {
     // find which index you clicked
-    var idClicked = this.id;
-    index = idClicked[idClicked.length - 1];
-
+    var index = $("input[value='remove']").attr("id").split('_')[1];
+    // $("input").attr("id")
+    console.log($("input[value='remove']"));
+    console.log($("input[value='remove']").attr("id"));
+    console.log(index);
     removeItemfromCart(index);
-    updateCartTable();
+    updateCartTable;
+    updateMenuCart();
   });
+
 
 });
 
